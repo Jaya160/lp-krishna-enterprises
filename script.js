@@ -122,33 +122,29 @@ const orderForm = document.getElementById('orderForm');
 if (orderForm) {
   orderForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
-    const originalText = btn.textContent;
+    const fields = e.target.querySelectorAll('input, select, textarea');
+    const naam = fields[0].value;
+    const mobile = fields[1].value;
+    const gaon = fields[2].value;
+    const pashu = fields[3].value;
+    const utpad = fields[4].value;
+    const kilo = fields[5].value;
+    const sankhya = fields[6].value;
+    const sandesh = fields[7].value;
 
-    btn.textContent = '✅ ऑर्डर भेज दिया गया!';
-    btn.style.background = 'linear-gradient(135deg, #25D366, #1a9e50)';
-    btn.style.transform = 'scale(1.03)';
-    btn.disabled = true;
+    const msg = `🐄 *नया ऑर्डर — LP Krishna Enterprises*
 
-    // Show success message
-    const successMsg = document.createElement('div');
-    successMsg.style.cssText = `
-      background: linear-gradient(135deg, #25D366, #1a9e50);
-      color: white; padding: 16px; border-radius: 14px;
-      text-align: center; font-weight: 600; font-size: 15px;
-      margin-top: 14px; animation: fadeUp 0.4s ease;
-    `;
-    successMsg.textContent = '🎉 आपका ऑर्डर मिल गया! हम जल्द संपर्क करेंगे।';
-    btn.parentNode.appendChild(successMsg);
+👤 नाम: ${naam}
+📞 मोबाइल: ${mobile}
+📍 गाँव/शहर: ${gaon}
+🐄 पशु: ${pashu}
+🛒 उत्पाद: ${utpad}
+⚖️ मात्रा: ${kilo} किग्रा
+🔢 पशु संख्या: ${sankhya}
+💬 संदेश: ${sandesh || 'कोई संदेश नहीं'}`;
 
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.style.background = '';
-      btn.style.transform = '';
-      btn.disabled = false;
-      successMsg.remove();
-      e.target.reset();
-    }, 4000);
+    const url = `https://wa.me/917891477000?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
   });
 }
 
